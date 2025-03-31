@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
+from logger import logger
+
 # Initialize the FastAPI app
 app = FastAPI()
 
@@ -11,6 +14,7 @@ class SumRequest(BaseModel):
 
 @app.get("/")
 def read_root():
+    logger.info("Checkup api done")
     return {"message": "Welcome to the FastAPI app!"}
 
 @app.post("/sum")
