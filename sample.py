@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
+from logger import logger
+
 # Initialize the FastAPI app
 app = FastAPI()
 
@@ -11,11 +14,13 @@ class SumRequest(BaseModel):
 
 @app.get("/")
 def read_root():
+    logger.info("Checkup api done")
     return {"message": "Welcome to the FastAPI app!"}
 
 @app.post("/sum")
 def calculate_sum(request: SumRequest):
     result = request.num1 + request.num2
+    logger.info(f"The sum of {nun1} and {num2} is {result}")
     return {"num1": request.num1, "num2": request.num2, "sum": result}
 
 
