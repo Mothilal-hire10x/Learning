@@ -20,6 +20,7 @@ def read_root():
 @app.post("/sum")
 def calculate_sum(request: SumRequest):
     result = request.num1 + request.num2
+    logger.info(f"The sum of {nun1} and {num2} is {result}")
     return {"num1": request.num1, "num2": request.num2, "sum": result}
 
 
