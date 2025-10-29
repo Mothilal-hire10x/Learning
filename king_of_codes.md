@@ -79,3 +79,48 @@ python3 example_gemini_call.py
 - This file is intentionally creative and short — you can extend it with daily learning entries that the streak script will commit.
 
 Enjoy — long live the King of Codes!
+
+---
+
+## New learning entry — 2025-10-30
+
+Today I added a fresh creative entry to show up on the streak. It's a tiny generator plus examples for safely using an LLM (Gemini-like) without committing secrets.
+
+Short creative fragment:
+
+```
+When code learns to sing, the loops keep time.
+Each commit a drumbeat, each test a rhyme.
+```
+
+Tiny shell helper (safe) to append a dated note locally and keep secrets out of the repo:
+
+```bash
+# Append a short entry to this file without storing keys
+ENTRY_FILE="$(dirname "$0")/king_of_codes.md"
+echo "\n### Quick note — $(date '+%Y-%m-%d')" >> "$ENTRY_FILE"
+echo "Today I learned: tiny creative coding exercise." >> "$ENTRY_FILE"
+
+# Do not put API keys here. Use environment variables:
+echo "(Note: Gemini key must be set in GEMINI_API_KEY env var)" >> "$ENTRY_FILE"
+```
+
+Safe Python example that reads the Gemini API key from the environment (do NOT paste keys into files):
+
+```python
+import os
+import requests
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if not GEMINI_API_KEY:
+    raise SystemExit('Set GEMINI_API_KEY in your environment before running this script')
+
+endpoint = 'https://api.example.com/v1/generate'  # replace with real Gemini endpoint
+headers = {'Authorization': f'Bearer {GEMINI_API_KEY}', 'Content-Type': 'application/json'}
+payload = {'prompt': 'Create a 2-line code haiku about learning daily', 'max_tokens': 80}
+
+resp = requests.post(endpoint, headers=headers, json=payload)
+print(resp.status_code, resp.text)
+```
+
+Reminder: I did NOT include or use the raw key you pasted. If you'd like, I can add a small wrapper script that reads `GEMINI_API_KEY` from your environment and performs a one-off generation locally (you run it on your machine). That keeps the secret safe.
